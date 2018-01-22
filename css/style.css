@@ -1,0 +1,147 @@
+html,
+body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    position: relative;
+    color: white;
+}
+
+#map {
+    bottom: 0px;
+    top: 40px;
+    height: 100%;
+    width: 100%;
+    left: 1px;
+    position: relative;
+    right: 0px;
+}
+
+.input-style {
+    width: 100%;
+    height: 30px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    color: #fff;
+    font: 300 40px 'Open Sans';
+    width: 300px;
+    padding: 30px;
+    float: left;
+}
+
+.positionListDiv {
+    position: relative;
+    width: 270px;
+    top: 20px;
+}
+
+#positionList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#positionList li:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+#positionList li {
+    height: 35px;
+    width: 100%;
+    line-height: 35px;
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.rootDiv {
+    width: 100%;
+    height: 100%;
+    float: left;
+    position: relative;
+    /*box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.5);*/
+    overflow: hidden;
+}
+
+/*Hiding the checkbox*/
+#tm {
+    display: none;
+}
+
+/*Content area*/
+.rootDiv section {
+    /*background: url("img/mb1.png");*/
+    background: black;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: all 0.25s;
+}
+
+.navIconLayout {
+    width: 100%;
+    height: 40px;
+    background: #4a4b5c;
+}
+
+.navIcon {
+    color: white;
+    font: bold 14px Montserrat;
+    text-align: center;
+    border: 2px solid white;
+    display: block;
+    width: 70px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+/*Nav styles*/
+.sideNav {
+    background: rgb(50, 60, 60);
+    width: 300px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 0px;
+}
+
+.sideNav li {
+    list-style-type: none;
+}
+
+.inputLayout {
+    text-align: center;
+}
+
+.inputStyle {
+    width: 240px;
+    height: 20px;
+}
+
+.searchIcon {
+    position: relative;
+    top: 12px;
+    width: 30px;
+    height: 30px;
+}
+
+#tm:checked ~ section {
+    transform: translateX(300px);
+}

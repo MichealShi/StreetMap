@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>街区地图</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="rootDiv">
+    <input type="checkbox" id="tm"/>
+    <!-- 搜索区域 -->
+    <ul class="sideNav">
+        <h2>街区地图</h2>
+        <!-- 搜索输入框及搜索按钮 -->
+        <div class="inputLayout">
+            <input class="inputStyle" type="text" name="" id="filter"
+                   data-bind="value: filter, valueUpdate: 'afterkeydown'">
+            <img class="searchIcon" src="img/ic_search_white_24px.svg"
+                 data-bind="click: searchPlace">
+        </div>
+        <!-- 初始化list及匹配数据 -->
+        <div class="positionListDiv">
+            <ul id="positionList" data-bind="foreach: filterLocation">
+                <li data-bind="text: title, click: $parent.markLocation"></li>
+            </ul>
+        </div>
+    </ul>
+
+    <!-- 地图区域 -->
+    <section>
+        <div id="map"></div>
+        <div class="navIconLayout">
+            <label class="navIcon" for="tm">SEARCH</label>
+        </div>
+    </section>
+</div>
+<script src="js/lib/jquery-3.3.1.js"></script>
+<script src="js/lib/knockout-3.4.2-debug.js"></script>
+<script type='text/javascript' src="js/app.js"></script>
+<script type='text/javascript' src="js/map.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvdy_ShCUMGXbSfXVPaRG5h8pt638upQw&libraries=places&callback=initApp"
+        onerror="Error()">
+</script>
+</body>
+</html>
