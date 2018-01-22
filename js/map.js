@@ -1,5 +1,4 @@
 var map;
-var bounds;
 var infoWindow;
 var markers = [];
 var locations = [
@@ -16,7 +15,6 @@ function initMap() {
         zoom: 10
     });
     infoWindow = new google.maps.InfoWindow();
-    bounds = new google.maps.LatLngBounds();
     locations.forEach(function (loc) {
         var position = loc.location;
         var title = loc.title;
@@ -33,9 +31,7 @@ function initMap() {
                 populateFoursquareInfoWindow(self, data);
             });
         });
-        bounds.extend(marker.position);
     });
-    map.fitBounds(bounds);
 }
 
 /**
@@ -47,7 +43,6 @@ function showMarkers(positions) {
     positions.forEach(function (pos) {
         var marker = createMarker(pos);
         markers.push(marker);
-        bounds.extend(pos.location);
         marker.addListener('click', function () {
             var self = this;
             requestPlaceInfo(self, function (data) {
@@ -193,6 +188,10 @@ function populateFoursquareInfoWindow(marker, displayContent) {
     }
 }
 
+/**
+ * api请求异常处理
+ * @constructor
+ */
 function Error() {
     alert('something do not work');
 }
