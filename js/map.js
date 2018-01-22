@@ -17,22 +17,24 @@ function initMap() {
     });
     infoWindow = new google.maps.InfoWindow();
     bounds = new google.maps.LatLngBounds();
-    for (var i = 0; i < locations.length; i++) {
-        var position = locations[i].location;
-        var title = locations[i].title;
+    locations.forEach(function (loc) {
+        var position = loc.location;
+        var title = loc.title;
         var marker = new google.maps.Marker({
             map: map,
             position: position,
             title: title,
             animation: google.maps.Animation.DROP,
-            id: i
         });
         markers.push(marker);
         marker.addListener('click', function () {
-            populateInfoWindow(this, infoWindow);
+            var self = this;
+            requestPlaceInfo(self, function (data) {
+                populateFoursquareInfoWindow(self, data);
+            });
         });
-        bounds.extend(markers[i].position);
-    }
+        bounds.extend(marker.position);
+    });
     map.fitBounds(bounds);
 }
 
@@ -42,18 +44,17 @@ function initMap() {
  */
 function showMarkers(positions) {
     clearMarkers();
-    for (var i = 0; i < positions.length; i++) {
-        var loc = positions[i];
-        var marker = createMarker(loc, i);
+    positions.forEach(function (pos) {
+        var marker = createMarker(pos);
         markers.push(marker);
-        bounds.extend(loc.location);
+        bounds.extend(pos.location);
         marker.addListener('click', function () {
             var self = this;
             requestPlaceInfo(self, function (data) {
                 populateFoursquareInfoWindow(self, data);
-            })
-        })
-    }
+            });
+        });
+    });
 }
 
 /**
@@ -62,13 +63,12 @@ function showMarkers(positions) {
  * @param index pos
  * @returns {google.maps.Marker}
  */
-function createMarker(loc, index) {
+function createMarker(loc) {
     return new google.maps.Marker({
         map: map,
         position: loc.location,
         title: loc.title,
         animation: google.maps.Animation.DROP,
-        id: index
     });
 }
 
@@ -77,9 +77,12 @@ function createMarker(loc, index) {
  * @param loc
  */
 function filterMarker(loc) {
-    var marker = createMarker(loc, 0);
+    var marker = createMarker(loc);
     marker.addListener('click', function () {
-        populateInfoWindow(this, infoWindow);
+        var self = this;
+        requestPlaceInfo(self, function (data) {
+            populateFoursquareInfoWindow(self, data);
+        });
     });
     markers.push(marker);
 }
@@ -91,17 +94,6 @@ function clearMarkers() {
     markers.forEach(function (marker) {
         marker.setMap(null);
     });
-}
-
-/**
- * 点击标记展示内容
- * @param marker    点击的标记
- * @param infoWindow    标记提示内容
- */
-function populateInfoWindow(marker, infoWindow) {
-    infoWindow.marker = marker;
-    infoWindow.setContent('<div>' + marker.title + '</div>');
-    infoWindow.open(map, marker);
 }
 
 /**
@@ -127,7 +119,7 @@ function callback(results, status) {
     clearMarkers();
     // 如果请求成功,在地图上展示搜索结果
     if (status === google.maps.places.PlacesServiceStatus.OK) {
-        results.foreach(function (res) {
+        results.forEach(function (res) {
             createMarkerByPlace(res);
         });
         // 地图中心设置成第一个点的位置
