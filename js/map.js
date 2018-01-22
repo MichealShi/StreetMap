@@ -88,9 +88,9 @@ function filterMarker(loc) {
  * 清理标记
  */
 function clearMarkers() {
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
-    }
+    markers.forEach(function (marker) {
+        marker.setMap(null);
+    });
 }
 
 /**
@@ -127,9 +127,9 @@ function callback(results, status) {
     clearMarkers();
     // 如果请求成功,在地图上展示搜索结果
     if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
-            createMarkerByPlace(results[i]);
-        }
+        results.foreach(function (res) {
+            createMarkerByPlace(res);
+        });
         // 地图中心设置成第一个点的位置
         map.setCenter(results[0].geometry.location);
     }
