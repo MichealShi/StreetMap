@@ -22,3 +22,14 @@
  - Knockout JS
  - jQuery ajax
  - Foursquare API
+
+
+### 改进地方
+ - 常量将var替换成const
+ - 加入google.maps.event.trigger(marker, 'click');使用户点击条目地图上有变化
+ - 使用了ES6的for of函数 for(let marker of markers)
+
+### 待研究改进
+ - locations独立成json文件
+ - for of 与 forEach for 的区别
+ - ES6的`Fifteen is ${a} and\nnot ${b}.`,这种方式为什么不起作用
