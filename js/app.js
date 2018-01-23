@@ -17,7 +17,7 @@ var ViewModel = function () {
     self.markLocation = function (pos) {
         // 清理Markers
         clearMarkers();
-        filterMarker(pos, 0);
+        google.maps.event.trigger(markers[locations.indexOf(pos)], 'click');
         map.setCenter(pos.location);
     };
 

@@ -1,7 +1,7 @@
 var map;
 var infoWindow;
 var markers = [];
-var locations = [
+const locations = [
     {title: '银河SOHO', location: {lat: 39.921170, lng: 116.433120}},
     {title: '雍和宫', location: {lat: 39.948553, lng: 116.417678}},
     {title: '恭王府', location: {lat: 39.937355, lng: 116.386191}},
@@ -15,7 +15,7 @@ function initMap() {
         zoom: 10
     });
     infoWindow = new google.maps.InfoWindow();
-    locations.forEach(function (loc) {
+    for (let loc of locations) {
         var position = loc.location;
         var title = loc.title;
         var marker = new google.maps.Marker({
@@ -31,7 +31,7 @@ function initMap() {
                 populateFoursquareInfoWindow(self, data);
             });
         });
-    });
+    }
 }
 
 /**
@@ -40,7 +40,7 @@ function initMap() {
  */
 function showMarkers(positions) {
     clearMarkers();
-    positions.forEach(function (pos) {
+    for (let pos of positions) {
         var marker = createMarker(pos);
         markers.push(marker);
         marker.addListener('click', function () {
@@ -49,7 +49,7 @@ function showMarkers(positions) {
                 populateFoursquareInfoWindow(self, data);
             });
         });
-    });
+    }
 }
 
 /**
@@ -86,9 +86,9 @@ function filterMarker(loc) {
  * 清理标记
  */
 function clearMarkers() {
-    markers.forEach(function (marker) {
+    for (let marker of markers) {
         marker.setMap(null);
-    });
+    }
 }
 
 /**
@@ -114,9 +114,9 @@ function callback(results, status) {
     clearMarkers();
     // 如果请求成功,在地图上展示搜索结果
     if (status === google.maps.places.PlacesServiceStatus.OK) {
-        results.forEach(function (res) {
+        for (let res of results) {
             createMarkerByPlace(res);
-        });
+        }
         // 地图中心设置成第一个点的位置
         map.setCenter(results[0].geometry.location);
     }
